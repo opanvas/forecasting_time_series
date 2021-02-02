@@ -109,8 +109,9 @@ print(tests_table)
 ```
 </div>
 
-<div id= 'time_series_7'>
 
+# HEY GUYS COPYPASTE FROM HERE TO '</div>' AND ADD YOUR SERIES INFO AND THE DESIRED GRAPHS I WILL MAKE IT LOOK NICE ON THRU
+<div id= 'time_series_7'>
 ## Time Series 7
 ```{r date_variant, echo=FALSE}
 y<-series7
@@ -128,6 +129,8 @@ mean(y)
 sd(y)
 skewness(y)
 kurtosis(y,method=c("moment"))  
+
+
 
 ```
 </div>

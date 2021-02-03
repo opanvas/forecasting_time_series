@@ -94,6 +94,8 @@ series7=data[,7]
 
 ```{r date_variant, echo=FALSE}
 print(summary_table_ts_or)
+
+# will find a way to update, i now devided them into 2 just in case
 ```
 
 ## Transformed Data

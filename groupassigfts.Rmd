@@ -21,14 +21,15 @@ knitr::opts_chunk$set(echo = TRUE)
 <div class="dropdown">
 <a class="dropbtn">Data analysis</a>
 <div class="dropdown-content">
-  [dates](#dates)
-  [station_location](#station_location)
-  [heatmaps](#heatmaps)
+  [Time series 1](#time_series_1)
+  [Time series 2](#time_series_2)
+  [Time series 3](#time_series_3)
+  [Time series 4](#time_series_4)
 </div>
 </div>
-  [Data Preparation](#data_preparation)
-  [Data Processing](#data_processing)
-  [Building the Model](#building_the_model)
+  [Time series 5](#time_series_5)
+  [Time series 6](#time_series_6)
+  [Time series 7](#time_series_7)
 </h3>
 <body style = "font-family: Arial, Helvetica, sans-serif;">
 <a center class="anchor" id="Introduction" style="background-color:Gainsboro; width:40%;"></a>

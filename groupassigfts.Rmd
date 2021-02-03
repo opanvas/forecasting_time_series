@@ -117,10 +117,69 @@ print(tests_table)
 
 <div id= 'time_series_1'>
 ## Time Series 1
+  
+### Graphical Representation of Time Series and respective ACF & PACF:
+
+```{r date_variant, echo=FALSE}
+y<-series1
+par(mar=c(2,2,2,2)) # to adjust graphic size
+par(mfrow=c(3,1)) # plot the series, its acf and pacf together
+ts.plot(y)   
+acf(y)
+pacf(y)
+```
+
+### Computation of basic descriptive statistics:
+
+```{r date_variant, echo=FALSE}
+mean(y)
+sd(y)
+skewness(y)
+kurtosis(y,method=c("moment"))  
+```
+
+The series plot suggest this dataset is stationary around both mean and variance. When looking at both ACF & PACF function we observe that, at a 95% confidence level, past information appears unable to guide future forecasting efforts. Note that while lag 12 surpasses the confidence interval boundary, its small magnitude (approx. 0.11 ) and the lack of addition information about the dataset's time frequency (e.g is it monthly or yearly data?) make it negligible. Consequently, given the series' mean of 0.03205, we feel comfortable suggesting this series represents a white noise (WN) process. To verify the later, we conducted a formal unit root test: the Augmented Dickey Fuller (ADF) with the following hypothesis:
+
+  *Ho: the process is not stationary.(i.e. We need a unit root)*
+  *H1: the process is stationary.(i.e. No differences needed)*
+
+```{r date_variant, echo=FALSE}
+ndiffs(y, alpha=0.05, test=c("adf"))
+```
+
+The ADF test indicates 0 required differences, hence enabling us to reject Ho and validate our previous inference. Consequently, we can also conclude that no linear model would be helpful to model/predict future values of this time series (i.e. mean is the best point estimmate). Now , we will try and identify if the series' marginal distribution is normality distributed (or not) by recurring to both graphical tools and nornality tests (i.e. Shapiro and Jarque-Bera Tests). 
+
+### Testing for Normality:
 
 ```{r date_variant, echo=FALSE}
 
+#Graphically:
+
+par(mfrow=c(1,1))
+hist(y,prob=T,ylim=c(0,0.6),xlim=c(mean(y)-3*sd(y),mean(y)+3*sd(y)),col="red")
+lines(density(y),lwd=2)
+mu<-mean(y)
+sigma<-sd(y)
+x<-seq(mu-3*sigma,mu+3*sigma,length=100)
+yy<-dnorm(x,mu,sigma)
+lines(x,yy,lwd=2,col="blue")
 ```
+According to our graphical analysis, time series 1 joint distribution seems normally distributed given the black (our series) and blue (normal distribution reference line N ~ (0,1)) overlap significantly with the exception of a small detour on the left side of the distribution around x = -2. 
+
+```{r date_variant, echo=FALSE}
+
+#Formal Tests:
+
+shapiro.test(y)
+jb.norm.test(y)
+```
+Both formal tests follow the same hypothesis structure:
+
+  *Ho: the data is normally distributed*
+  *H1: the data is not normally distributed*
+
+While both formal tests preconised that we should reject Ho at a 95% confidence level (p.values of roughly 0.02 and 0.003 respectively), we deemed the results excessively rigid for this particular case and decided to stick with the eye test. Therefore, by infering this series joint distribution is marginally distributed, we concluded it is not only a WN but also Gaussian White Noise (GWN) and subsquently Strict White Noise (SWN) process since an uncorrelated variable whose multivariate joint distribution is Normal is forcefully indepedent and identically distributed(i.i.d). Given our latest findings, we can also infer that no non-linear model would be of help in future forecasting endeavours. As a result, no data transfomation is needed.
+
 </div>
 
 

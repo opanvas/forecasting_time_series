@@ -143,6 +143,8 @@ The series plot suggest this dataset is stationary around both mean and variance
   *Ho: the process is not stationary.(i.e. We need a unit root)*
   *H1: the process is stationary.(i.e. No differences needed)*
 
+**Stationarity Formal Test:
+
 ```{r date_variant, echo=FALSE}
 ndiffs(y, alpha=0.05, test=c("adf"))
 ```
@@ -151,6 +153,8 @@ When looking at both ACF & PACF function we observe that, at a 95% confidence le
 
   *Ho: Uncorrelated data*
   *H1: Correlated data*
+
+**Testing for White-Noise(WN)/Autocorrelation:
 
 ```{r date_variant, echo=FALSE}
 Box.test (y, lag = 20, type="Ljung")
@@ -190,6 +194,7 @@ Both formal tests follow the same hypothesis structure:
 While both formal tests preconised that we should reject Ho at a 95% confidence level (p.values of roughly 0.02 and 0.003 respectively), we deemed the results excessively rigid for this particular case and decided to stick with the eye test. Therefore, by infering this series joint distribution is marginally distributed, we concluded it is not only a WN but also Gaussian White Noise (GWN) and subsquently Strict White Noise (SWN) process since an uncorrelated variable whose multivariate joint distribution is Normal is forcefully indepedent and identically distributed(i.i.d). Given our latest findings, we can also infer that no non-linear model would be of help in future forecasting endeavours. 
 
 </div id= 'time_series_2'>
+## Time Series 2
 
 ### Graphical Representation of Time Series and respective ACF & PACF:
 
@@ -216,6 +221,8 @@ The series plot suggests this dataset is not stationary around the mean (it exhb
   *Ho: the process is not stationary.(i.e. We need a unit root)*
   *H1: the process is stationary.(i.e. No differences needed)*
 
+**Stationarity Formal Test:
+
 ```{r date_variant, echo=FALSE}
 ndiffs(y, alpha=0.05, test=c("adf"))
 ```
@@ -226,11 +233,16 @@ When observing both ACF & PACF function we infer that, at a 95% confidence level
   *Ho: Uncorrelated data*
   *H1: Correlated data*
 
+**Testing for White-Noise(WN)/Autocorrelation:
+
 ```{r date_variant, echo=FALSE}
 Box.test (y, lag = 20, type="Ljung")
 ```
 
 The extremely small p-value reported confirmed our graphical analysis and we are now able to infer our time series is not a WN process of any kind. Consequently, we can also conclude that a linear model is needed model/predict future values of this time series. Ultimately, requiring (or not) a non-linear model to analyse this time series will remain unknown since we must first isolate the linear part of the model to make such inference.
+
+</div id= 'time_series_2_transformed'>
+
 
 
 # HEY GUYS COPYPASTE FROM HERE TO '</div>' AND ADD YOUR SERIES INFO AND THE DESIRED GRAPHS I WILL MAKE IT LOOK NICE ON THRU

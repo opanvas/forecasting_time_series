@@ -138,7 +138,7 @@ skewness(y)
 kurtosis(y,method=c("moment"))  
 ```
 
-The series plot suggest this dataset is stationary around both mean and variance. When looking at both ACF & PACF function we observe that, at a 95% confidence level, past information appears unable to guide future forecasting efforts. Note that while lag 12 surpasses the confidence interval boundary, its small magnitude (approx. 0.11 ) and the lack of addition information about the dataset's time frequency (e.g is it monthly or yearly data?) make it negligible. Consequently, given the series' mean of 0.03205, we feel comfortable suggesting this series represents a white noise (WN) process. To verify the later, we conducted a formal unit root test: the Augmented Dickey Fuller (ADF) with the following hypothesis:
+The series plot suggest this dataset is stationary around both mean and variance. To verify our deductions, we conducted a formal unit root test: the Augmented Dickey Fuller (ADF) with the following hypothesis:
 
   *Ho: the process is not stationary.(i.e. We need a unit root)*
   *H1: the process is stationary.(i.e. No differences needed)*
@@ -146,8 +146,17 @@ The series plot suggest this dataset is stationary around both mean and variance
 ```{r date_variant, echo=FALSE}
 ndiffs(y, alpha=0.05, test=c("adf"))
 ```
+The ADF test indicates 0 required differences, hence enabling us to reject Ho and validate our previous inference. Furthermore, we are also capable of claiming no data transformation is needed.
+When looking at both ACF & PACF function we observe that, at a 95% confidence level, past information appears unable to guide future forecasting efforts. Note that while lag 12 surpasses the confidence interval boundary, its small magnitude (approx. 0.11 ) and the lack of addition information about the dataset's time frequency (e.g is it monthly or yearly data?) make it negligible. To formally assess the series autocorrelation, we opted to realise a Box-Ljung Test with the following hypotheses:
 
-The ADF test indicates 0 required differences, hence enabling us to reject Ho and validate our previous inference. Consequently, we can also conclude that no linear model would be helpful to model/predict future values of this time series (i.e. mean is the best point estimmate). Now , we will try and identify if the series' marginal distribution is normality distributed (or not) by recurring to both graphical tools and nornality tests (i.e. Shapiro and Jarque-Bera Tests). 
+  *Ho: Uncorrelated data*
+  *H1: Correlated data*
+
+```{r date_variant, echo=FALSE}
+Box.test (y, lag = 20, type="Ljung")
+```
+
+The test p.value of 0.5 suggests that, at a 95% confindence level, we should accept the alternative hypothesis that the data is correlated and that lag 12 matters for forecasting purposes. Nevertheless, as mentioned earlier, the lag's small magnitude and our lack of additional infomation about the data made us favour the results showcased by our graphical analysis. Consequently, given the series' mean of 0.03205, we feel comfortable suggesting this series represents a white noise (WN) process. In addition, we can also conclude that no linear model would be helpful to model/predict future values of this time series (i.e. mean is the best point estimmate). Now, we will try and identify if the series' marginal distribution is normality distributed (or not) by recurring to both graphical tools and nornality tests (i.e. Shapiro and Jarque-Bera Tests). 
 
 ### Testing for Normality:
 
@@ -178,9 +187,50 @@ Both formal tests follow the same hypothesis structure:
   *Ho: the data is normally distributed*
   *H1: the data is not normally distributed*
 
-While both formal tests preconised that we should reject Ho at a 95% confidence level (p.values of roughly 0.02 and 0.003 respectively), we deemed the results excessively rigid for this particular case and decided to stick with the eye test. Therefore, by infering this series joint distribution is marginally distributed, we concluded it is not only a WN but also Gaussian White Noise (GWN) and subsquently Strict White Noise (SWN) process since an uncorrelated variable whose multivariate joint distribution is Normal is forcefully indepedent and identically distributed(i.i.d). Given our latest findings, we can also infer that no non-linear model would be of help in future forecasting endeavours. As a result, no data transfomation is needed.
+While both formal tests preconised that we should reject Ho at a 95% confidence level (p.values of roughly 0.02 and 0.003 respectively), we deemed the results excessively rigid for this particular case and decided to stick with the eye test. Therefore, by infering this series joint distribution is marginally distributed, we concluded it is not only a WN but also Gaussian White Noise (GWN) and subsquently Strict White Noise (SWN) process since an uncorrelated variable whose multivariate joint distribution is Normal is forcefully indepedent and identically distributed(i.i.d). Given our latest findings, we can also infer that no non-linear model would be of help in future forecasting endeavours. 
 
-</div>
+</div id= 'time_series_2'>
+
+### Graphical Representation of Time Series and respective ACF & PACF:
+
+```{r date_variant, echo=FALSE}
+y<-series2
+par(mar=c(2,2,2,2)) # to adjust graphic size
+par(mfrow=c(3,1)) # plot the series, its acf and pacf together
+ts.plot(y)   
+acf(y)
+pacf(y)
+```
+
+### Computation of basic descriptive statistics:
+
+```{r date_variant, echo=FALSE}
+mean(y)
+sd(y)
+skewness(y)
+kurtosis(y,method=c("moment"))  
+```
+
+The series plot suggests this dataset is not stationary around the mean (it exhbits clear sustended positive and negative fluctuations), a result hinted by the series -0.22 mean. Regarding the variance, the graph shows no clear and sustainable variance trend acrross time, hence we deemed series 2 variance stationary. To verify our deductions, we conducted a formal unit root test: the Augmented Dickey Fuller (ADF) with the following hypothesis:
+
+  *Ho: the process is not stationary.(i.e. We need a unit root)*
+  *H1: the process is stationary.(i.e. No differences needed)*
+
+```{r date_variant, echo=FALSE}
+ndiffs(y, alpha=0.05, test=c("adf"))
+```
+
+The ADF test indicates 1 difference is required for the data to become stationary in the mean, hence enabling us to accept Ho and validate our previous inference. 
+When observing both ACF & PACF function we infer that, at a 95% confidence level, past information (especially lag 1) could prove to be extremely helpful to guide future forecasting efforts. To formally assess the series autocorrelation, we opted to realise a Box-Ljung Test with the following hypotheses:
+
+  *Ho: Uncorrelated data*
+  *H1: Correlated data*
+
+```{r date_variant, echo=FALSE}
+Box.test (y, lag = 20, type="Ljung")
+```
+
+The extremely small p-value reported confirmed our graphical analysis and we are now able to infer our time series is not a WN process of any kind. Consequently, we can also conclude that a linear model is needed model/predict future values of this time series. Ultimately, requiring (or not) a non-linear model to analyse this time series will remain unknown since we must first isolate the linear part of the model to make such inference.
 
 
 # HEY GUYS COPYPASTE FROM HERE TO '</div>' AND ADD YOUR SERIES INFO AND THE DESIRED GRAPHS I WILL MAKE IT LOOK NICE ON THRU

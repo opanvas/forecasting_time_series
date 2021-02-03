@@ -352,7 +352,7 @@ Both formal tests follow the same hypothesis structure:
   *H1: the data is not normally distributed*
 
 Both Jarque-Bera (p-value 0.55) and Shapiro tests (p-value 0.69) indicate we should accept the null hypothesis at a 95% confidence level. Therefore, we were able to validate the conclusions based on the team's eye test. As per consequence, by infering this series joint distribution is marginally distributed, we concluded it is not only a WN but also Gaussian White Noise (GWN) and subsquently Strict White Noise (SWN) process since an uncorrelated variable whose multivariate joint distribution is Normal is forcefully i.i.d. Given our latest findings, we can also infer that no non-linear model would be of help in future forecasting endeavours. 
-
+</div>
 
 </div id= 'time_series_3'>
 
@@ -514,6 +514,7 @@ Both formal tests follow the same hypothesis structure:
   *H1: the data is not normally distributed*
 
 Both Jarque-Bera (p-value 0.20) and Shapiro tests (p-value 0.22) indicate we should accept the null hypothesis at a 95% confidence level. Therefore, we were able to validate the conclusions based on the team's eye test. As per consequence, this series joint distribution is normally distributed. 
+</div>
 
 </div id= 'time_series_4'>
 ## Time Series 4
@@ -673,7 +674,7 @@ Both formal tests follow the same hypothesis structure:
   *H1: the data is not normally distributed*
 
 Both Jarque-Bera (p-value 0.4775) and Shapiro tests (p-value 0.3416) indicate we should accept the null hypothesis at a 95% confidence level. Therefore, we were able to validate the conclusions based on the team's eye test. As per consequence,this series is marginally distributed.
-
+</div>
 
 <div id= 'time_series_5'>
 ## Time Series 5
@@ -766,6 +767,7 @@ acf(y^2)
 pacf(y^2)
 ```
 When testing for strict white noise, the series plot suggests this dataset does not have strict white noise as there are many lags outside of bound in both the ACF and PACF. As there is not SWN, we can also exclude gaussian white noise from this series. Consequently, we can also conclude that a non linear model is needed to model/predict future values of this time series.
+</div>
 
 <div id= 'time_series_6'>
 ## Time Series 6
@@ -846,6 +848,7 @@ Both formal tests follow the same hypothesis structure:
   *H1: the data is not normally distributed*
 
 Both Jarque-Bera and Shapiro tests reported extremely small p-values < 2.2e-16, indicating we should reject the null hypothesis at a 95% confidence level. Therefore, we were able to validate the conclusions based on the team's eye test.
+</div>
 
 <div id= 'time_series_7'>
 
@@ -1019,7 +1022,7 @@ acf(z^2)
 pacf(z^2)
 ```
 When testing for strict white noise, the series plot suggests this dataset does not have strict white noise as there are many lags outside of bound in both the mean and the variance (ACF and PACF). 
-
+</div>
 
 ###### THE END ######
 ```{r date_variant, echo=FALSE}
@@ -1042,4 +1045,3 @@ kurtosis(y,method=c("moment"))
 
 
 ```
-</div>

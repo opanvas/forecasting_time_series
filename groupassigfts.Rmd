@@ -66,14 +66,15 @@ library(readxl)
 #data<-read.csv("C:/Users/usuario/Desktop/LPC/MASTERS/MBD_abril_2019/Sessions2&3sim.csv",header=TRUE,sep=";",dec=",")
 
 #Oxana file paths
-file_path_original_data <- file.path("~","Downloads","Timeseries","Homework_1_DATA .csv")
-data<-read.csv(file_path_original_data, header=TRUE,sep=";",dec=",")
+#file_path_original_data <- file.path("~","Downloads","Timeseries","Homework_1_DATA .csv")
+#data<-read.csv(file_path_original_data, header=TRUE,sep=";",dec=",")
 summary_table_ts_file <- file.path("~","Downloads","Timeseries","resultsfts.xlsx")
 summary_table_ts_or <- read_excel(summary_table_ts_file, sheet = 1)
 summary_table_ts_tr <- read_excel(summary_table_ts_file, sheet = 5)
 tests_table <- read_excel(summary_table_ts_file, sheet = 2)
-#summary_table_ts <- read.xlsx(summary_table_ts_file, 1)
-#tests_table <-read.xlsx(summary_table_ts_file, 2)
+
+#Luna file paths
+data<-read.csv(file_path_original_data, header=TRUE,sep=";",dec=",")
 
 # Data itself
 series1=data[,1] [1:300]

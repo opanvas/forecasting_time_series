@@ -69,7 +69,8 @@ library(readxl)
 file_path_original_data <- file.path("~","Downloads","Timeseries","Homework_1_DATA .csv")
 data<-read.csv(file_path_original_data, header=TRUE,sep=";",dec=",")
 summary_table_ts_file <- file.path("~","Downloads","Timeseries","resultsfts.xlsx")
-summary_table_ts <- read_excel(summary_table_ts_file, sheet = 1)
+summary_table_ts_or <- read_excel(summary_table_ts_file, sheet = 1)
+summary_table_ts_tr <- read_excel(summary_table_ts_file, sheet = 5)
 tests_table <- read_excel(summary_table_ts_file, sheet = 2)
 #summary_table_ts <- read.xlsx(summary_table_ts_file, 1)
 #tests_table <-read.xlsx(summary_table_ts_file, 2)
@@ -89,9 +90,19 @@ series7=data[,7]
 
 > 'We decided to also list the tests we used together with the original and transformed data'
 
+## Original Data 
+
 ```{r date_variant, echo=FALSE}
-print(summary_table_ts)
+print(summary_table_ts_or)
 ```
+
+## Transformed Data
+
+```{r date_variant, echo=FALSE}
+print(summary_table_ts_tr)
+```
+
+## Tests
 
 > 'Additionally we wanted to list all the tests we carried out in one place in order for it to be more understandable'
 

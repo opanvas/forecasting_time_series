@@ -75,7 +75,7 @@ summary_table_ts_tr <- read_excel(summary_table_ts_file, sheet = 5)
 tests_table <- read_excel(summary_table_ts_file, sheet = 2)
 
 #Luna file path
-data<-read.csv(file_path_original_data, header=TRUE,sep=";",dec=",")
+data<-read.csv("/Users/lunaallani/Desktop/IE_Master/Forecasting Time Series/Homework_1_DATA.csv", header=TRUE,sep=";",dec=",")
 
 # Data itself
 series1=data[,1] [1:300]
@@ -241,7 +241,7 @@ Box.test (y, lag = 20, type="Ljung")
 
 The extremely small p-value reported confirmed our graphical analysis and we are now able to infer our time series is not a WN process of any kind. Consequently, we can also conclude that a linear model is needed model/predict future values of this time series. Ultimately, requiring (or not) a non-linear model to analyse this time series will remain unknown since we must first isolate the linear part of the model to make such inference.
 
-Now, we will try and identify if the series' marginal distribution is normally distributed by recurring to both graphical tools and nornality tests (i.e. Shapiro and Jarque-Bera Tests). 
+Now, we will try and identify if the series' marginal distribution is normally distributed by recurring to both graphical tools and normality tests (i.e. Shapiro and Jarque-Bera Tests). 
 
 ### Testing for Normality:
 
@@ -538,7 +538,7 @@ skewness(y)
 kurtosis(y,method=c("moment"))  
 ```
 
-The series plot suggests this dataset is not stationary around the mean (it exhbits a clear sustained upward trend), a result hinted by the series 1256.8 mean. Regarding the variance, the graph shows no clear and sustainable variance trend acrross time, hence we deemed series 2 variance stationary. To verify our deductions, we conducted a formal unit root test: the Augmented Dickey Fuller (ADF) with the following hypothesis:
+The series plot suggests this dataset is not stationary around the mean (it exhibits a clear sustained upward trend), a result hinted by the series 1256.8 mean. Regarding the variance, the graph shows no clear and sustainable variance trend across time, hence we deemed series 2 variance stationary. To verify our deductions, we conducted a formal unit root test: the Augmented Dickey Fuller (ADF) with the following hypothesis:
 
   *Ho: the process is not stationary.(i.e. We need a unit root)*
   *H1: the process is stationary.(i.e. No differences needed)*
@@ -595,11 +595,433 @@ Both formal tests follow the same hypothesis structure:
 
 Both Jarque-Bera and Shapiro tests reported extremely small p-values, indicating we should reject the null hypothesis at a 95% confidence level. Therefore, we were able to validate the conclusions based on the team's eye test.
 
+## Time Series 4 (2 Difference Transformation):
 
-# HEY GUYS COPYPASTE FROM HERE TO '</div>' AND ADD YOUR SERIES INFO AND THE DESIRED GRAPHS I WILL MAKE IT LOOK NICE ON THRU
-#AAAAAA
+### Graphical Representation of Time Series and respective ACF & PACF:
+
+```{r date_variant, echo=FALSE}
+z<-diff(y) 
+z <-diff(z)
+par(mar=c(2,2,2,2)) # to adjust graphic size
+par(mfrow=c(3,1)) # plot the series, its acf and pacf together
+ts.plot(z)   
+acf(z)
+pacf(z)
+```
+
+### Computation of basic descriptive statistics:
+
+```{r date_variant, echo=FALSE}
+mean(z)
+sd(z)
+skewness(z)
+kurtosis(z,method=c("moment"))  
+```
+
+The series plot suggest this dataset is stationary around both mean and variance. To verify our deductions, we conducted a formal unit root test: the Augmented Dickey Fuller (ADF) with the following hypothesis:
+
+  *Ho: the process is not stationary.(i.e. We need a unit root)*
+  *H1: the process is stationary.(i.e. No differences needed)*
+
+**Stationarity Formal Test:
+
+```{r date_variant, echo=FALSE}
+ndiffs(z, alpha=0.05, test=c("adf"))
+```
+The ADF test indicates 0 required differences, hence enabling us to reject Ho and validate our previous inference. Furthermore, we are also capable of claiming no further data transformation will be needed. When analysing both ACF & PACF function we observe that, at a 95% confidence level, past information appears to contribute to futuristic predictions when it comes to the mean (i.e. all lags 1-2-3-4 are not within the confidence interval limit boundaries). To formally assess the series autocorrelation, we opted to realise a Box-Ljung Test with the following hypotheses:
+
+  *Ho: Uncorrelated data*
+  *H1: Correlated data*
+
+**Testing for White-Noise(WN)/Autocorrelation:
+
+```{r date_variant, echo=FALSE}
+Box.test (z, lag = 20, type="Ljung")
+```
+
+The test p.value of 2.2e-16 suggests that, at a 95% confindence level, we should reject the null hypothesis that the data is correlated and that the past is useful for forecasting purposes. Therefore, we feel comfortable suggesting this series has no white noise (WN) process. Because of that, the series will also not have strict white noise nor gaussian white noise. In addition, we can also conclude that a linear model is helpful to model/predict future values of this time series.Ultimately, requiring (or not) a non-linear model to analyse this time series will remain unknown since we must first isolate the linear part of the model to make such inference.
+
+Now, we will try and identify if the series' marginal distribution is normally distributed by recurring to both graphical tools and normality tests (i.e. Shapiro and Jarque-Bera Tests). 
+
+### Testing for Normality:
+
+```{r date_variant, echo=FALSE}
+
+#Graphically:
+
+par(mfrow=c(1,1))
+hist(z,prob=T,ylim=c(0,0.6),xlim=c(mean(z)-3*sd(z),mean(z)+3*sd(z)),col="red")
+lines(density(z),lwd=2)
+mu<-mean(z)
+sigma<-sd(z)
+x<-seq(mu-3*sigma,mu+3*sigma,length=100)
+yy<-dnorm(x,mu,sigma)
+lines(x,yy,lwd=2,col="blue")
+```
+According to our graphical analysis, the time series 2 (trasnformed) joint distribution seems normally distributed given the black (our series) and blue (normal distribution reference line N ~ (0,1)) overlap significantly despite the Bell curve being higher than  what exhibited by the time series 4.
+
+```{r date_variant, echo=FALSE}
+
+#Formal Tests:
+
+shapiro.test(z)
+jb.norm.test(z)
+```
+Both formal tests follow the same hypothesis structure:
+
+  *Ho: the data is normally distributed*
+  *H1: the data is not normally distributed*
+
+Both Jarque-Bera (p-value 0.4775) and Shapiro tests (p-value 0.3416) indicate we should accept the null hypothesis at a 95% confidence level. Therefore, we were able to validate the conclusions based on the team's eye test. As per consequence,this series is marginally distributed.
+
+
+<div id= 'time_series_5'>
+## Time Series 5
+
+### Graphical Representation of Time Series and respective ACF & PACF:
+
+```{r date_variant, echo=FALSE}
+y<-series5
+par(mar=c(2,2,2,2)) # to adjust graphic size
+par(mfrow=c(3,1)) # plot the series, its acf and pacf together
+ts.plot(y)   
+acf(y)
+pacf(y)
+```
+
+### Computation of basic descriptive statistics:
+
+```{r date_variant, echo=FALSE}
+mean(y)
+sd(y)
+skewness(y)
+kurtosis(y,method=c("moment"))  
+```
+
+The series plot suggests this dataset is stationary around the mean, a result hinted by the series  mean of 0.0071. Regarding the variance, the graph shows no clear and sustainable variance trend across time (the few lags out of bound do not impact the R^2 in a significant manner), hence we deemed series 5 variance stationary. To verify our deductions, we conducted a formal unit root test: the Augmented Dickey Fuller (ADF) with the following hypothesis:
+
+  *Ho: the process is not stationary.(i.e. We need a unit root)*
+  *H1: the process is stationary.(i.e. No differences needed)*
+
+**Stationarity Formal Test:
+
+```{r date_variant, echo=FALSE}
+ndiffs(y, alpha=0.05, test=c("adf"))
+```
+
+The ADF test indicates 0 differences are required for the data to become stationary in the mean, hence enabling us to reject Ho and validate our previous inference. From this, we can also say that the data will not need transformation. When observing both ACF & PACF function we infer that, at a 95% confidence level, past information could not prove to be helpful to guide future forecasting efforts. To formally assess the series autocorrelation, we opted to realise a Box-Ljung Test with the following hypotheses:
+
+  *Ho: Uncorrelated data*
+  *H1: Correlated data*
+
+**Testing for White-Noise(WN)/Autocorrelation:
+
+```{r date_variant, echo=FALSE}
+Box.test (y, lag = 20, type="Ljung")
+```
+
+The p-value of 0.032 reported confirmed our graphical analysis and we are now able to infer our time series is a WN process. Because of this reason, we can also infer that a linear model is not needed to model/predict future values of this time series. Consequently, we can also conclude that a non linear model is needed to model/predict future values of time series 5.
+
+Now, we will try and identify if the series' marginal distribution is normally distributed by recurring to both graphical tools and normality tests (i.e. Shapiro and Jarque-Bera Tests). 
+
+### Testing for Normality:
+
+```{r date_variant, echo=FALSE}
+
+#Graphically:
+
+par(mfrow=c(1,1))
+hist(y,prob=T,ylim=c(0,0.6),xlim=c(mean(y)-3*sd(y),mean(y)+3*sd(y)),col="red")
+lines(density(y),lwd=2)
+mu<-mean(y)
+sigma<-sd(y)
+x<-seq(mu-3*sigma,mu+3*sigma,length=100)
+yy<-dnorm(x,mu,sigma)
+lines(x,yy,lwd=2,col="blue")
+```
+According to our graphical analysis, the time series 5 joint distribution cannot be normally distributed. We decided to verify our intuition with formal tests.
+
+```{r date_variant, echo=FALSE}
+
+#Formal Tests:
+
+shapiro.test(y)
+jb.norm.test(y)
+```
+Both formal tests follow the same hypothesis structure:
+
+  *Ho: the data is normally distributed*
+  *H1: the data is not normally distributed*
+
+Both Jarque-Bera and Shapiro tests reported extremely small p-values (Jarque-Bera p-value < 2.2e-16, Shapiro p-value= 3.456e-10), indicating we should reject the null hypothesis at a 95% confidence level. Therefore, we were able to validate the conclusions based on the team's eye test. Because of this, we can also infer that the series will not have Gaussian White noise.
+
+### Testing for Strict White Noise:
+
+```{r}
+par(mar=c(2,2,2,2)) # to adjust graphic size
+
+par(mfrow=c(3,1)) # analysis of the squared data
+ts.plot(y^2)   
+acf(y^2)
+pacf(y^2)
+```
+When testing for strict white noise, the series plot suggests this dataset does not have strict white noise as there are many lags outside of bound in both the ACF and PACF. As there is not SWN, we can also exclude gaussian white noise from this series. Consequently, we can also conclude that a non linear model is needed to model/predict future values of this time series.
+
+<div id= 'time_series_6'>
+## Time Series 6
+
+### Graphical Representation of Time Series and respective ACF & PACF:
+
+```{r date_variant, echo=FALSE}
+y<-series6
+par(mar=c(2,2,2,2)) # to adjust graphic size
+par(mfrow=c(3,1)) # plot the series, its acf and pacf together
+ts.plot(y)   
+acf(y)
+pacf(y)
+```
+
+### Computation of basic descriptive statistics:
+
+```{r date_variant, echo=FALSE}
+mean(y)
+sd(y)
+skewness(y)
+kurtosis(y,method=c("moment"))  
+```
+
+The series plot suggests this dataset is stationary around the mean (it exhibits a constant trend), a result hinted by the series 0.0075 mean. Regarding the variance, the graph shows clear and sustainable variance trend across time, hence we deemed series 6 variance stationary. To verify our deductions, we conducted a formal unit root test: the Augmented Dickey Fuller (ADF) with the following hypothesis:
+
+  *Ho: the process is not stationary.(i.e. We need a unit root)*
+  *H1: the process is stationary.(i.e. No differences needed)*
+
+**Stationarity Formal Test:
+
+```{r date_variant, echo=FALSE}
+ndiffs(y, alpha=0.05, test=c("adf"))
+```
+
+The ADF test indicates 0 differences are required for the data to become stationary in the mean, hence enabling us to reject Ho and validate our previous inference.Because of this, no transformation to the data will be needed. When observing both ACF & PACF function we infer that, at a 95% confidence level, past information could are not helpful to guide future forecasting efforts. To formally assess the series autocorrelation, we opted to realise a Box-Ljung Test with the following hypotheses:
+
+  *Ho: Uncorrelated data*
+  *H1: Correlated data*
+
+**Testing for White-Noise(WN)/Autocorrelation:
+
+```{r date_variant, echo=FALSE}
+Box.test (y, lag = 20, type="Ljung")
+```
+
+The extremely small p-value < 2.2e-16 reported confirmed our graphical analysis and we are now able to infer our time series is not a WN process of any kind (also no SWN nor GWN). Consequently, we can also conclude that a linear model is needed to model/predict future values of this time series. Ultimately, requiring (or not) a non-linear model to analyse this time series will remain unknown since we must first isolate the linear part of the model to make such inference.
+
+Now, we will try and identify if the series' marginal distribution is normally distributed by recurring to both graphical tools and normality tests (i.e. Shapiro and Jarque-Bera Tests). 
+
+### Testing for Normality:
+
+```{r date_variant, echo=FALSE}
+
+#Graphically:
+
+par(mfrow=c(1,1))
+hist(y,prob=T,ylim=c(0,0.6),xlim=c(mean(y)-3*sd(y),mean(y)+3*sd(y)),col="red")
+lines(density(y),lwd=2)
+mu<-mean(y)
+sigma<-sd(y)
+x<-seq(mu-3*sigma,mu+3*sigma,length=100)
+yy<-dnorm(x,mu,sigma)
+lines(x,yy,lwd=2,col="blue")
+```
+According to our graphical analysis, the time series 6 joint distribution cannot be normally distributed. We decided to verify our intuition with formal tests.
+
+```{r date_variant, echo=FALSE}
+
+#Formal Tests:
+
+shapiro.test(y)
+jb.norm.test(y)
+```
+Both formal tests follow the same hypothesis structure:
+
+  *Ho: the data is normally distributed*
+  *H1: the data is not normally distributed*
+
+Both Jarque-Bera and Shapiro tests reported extremely small p-values < 2.2e-16, indicating we should reject the null hypothesis at a 95% confidence level. Therefore, we were able to validate the conclusions based on the team's eye test.
+
 <div id= 'time_series_7'>
+
 ## Time Series 7
+
+### Graphical Representation of Time Series and respective ACF & PACF:
+
+```{r date_variant, echo=FALSE}
+y<-series7
+par(mar=c(2,2,2,2)) # to adjust graphic size
+par(mfrow=c(3,1)) # plot the series, its acf and pacf together
+ts.plot(y)   
+acf(y)
+pacf(y)
+```
+
+### Computation of basic descriptive statistics:
+
+```{r date_variant, echo=FALSE}
+mean(y)
+sd(y)
+skewness(y)
+kurtosis(y,method=c("moment"))  
+```
+
+The series plot suggests this dataset is not stationary around the mean (it exhibits a clear sustained upward trend), a result hinted by the series 10.88196 mean. Regarding the variance, the graph shows no clear and sustainable variance trend across time, hence we deemed series 7 variance stationary. To verify our deductions, we conducted a formal unit root test: the Augmented Dickey Fuller (ADF) with the following hypothesis:
+
+  *Ho: the process is not stationary.(i.e. We need a unit root)*
+  *H1: the process is stationary.(i.e. No differences needed)*
+
+**Stationarity Formal Test:
+
+```{r date_variant, echo=FALSE}
+ndiffs(y, alpha=0.05, test=c("adf"))
+```
+
+The ADF test indicates 1 difference is required for the data to become stationary in the mean, hence enabling us to accept Ho and validate our previous inference. This also means the data will need transformation. When observing both ACF & PACF function we infer that, at a 95% confidence level, past information prove to be extremely helpful to guide future forecasting efforts. To formally assess the series autocorrelation, we opted to realise a Box-Ljung Test with the following hypotheses:
+
+  *Ho: Uncorrelated data*
+  *H1: Correlated data*
+
+**Testing for White-Noise(WN)/Autocorrelation:
+
+```{r date_variant, echo=FALSE}
+Box.test (y, lag = 20, type="Ljung")
+```
+
+The extremely small p-value < 2.2e-16 reported confirmed our graphical analysis and we are now able to infer our time series is not a WN process of any kind (also no SWN nor GWN). Consequently, we can also conclude that a linear model is needed model/predict future values of this time series. Ultimately, requiring (or not) a non-linear model to analyse this time series will remain unknown since we must first isolate the linear part of the model to make such inference.
+
+Now, we will try and identify if the series' marginal distribution is normally distributed by recurring to both graphical tools and nornality tests (i.e. Shapiro and Jarque-Bera Tests). 
+
+### Testing for Normality:
+
+```{r date_variant, echo=FALSE}
+
+#Graphically:
+
+par(mfrow=c(1,1))
+hist(y,prob=T,ylim=c(0,0.6),xlim=c(mean(y)-3*sd(y),mean(y)+3*sd(y)),col="red")
+lines(density(y),lwd=2)
+mu<-mean(y)
+sigma<-sd(y)
+x<-seq(mu-3*sigma,mu+3*sigma,length=100)
+yy<-dnorm(x,mu,sigma)
+lines(x,yy,lwd=2,col="blue")
+```
+According to our graphical analysis, the time series 7 joint distribution cannot be normally distributed. We decided to verify our intuition with formal tests.
+
+```{r date_variant, echo=FALSE}
+
+#Formal Tests:
+
+shapiro.test(y)
+jb.norm.test(y)
+```
+Both formal tests follow the same hypothesis structure:
+
+  *Ho: the data is normally distributed*
+  *H1: the data is not normally distributed*
+
+Both Jarque-Bera and Shapiro tests reported extremely small p-values < 2.2e-16, indicating we should reject the null hypothesis at a 95% confidence level. Therefore, we were able to validate the conclusions based on the team's eye test.
+
+## Time Series 7 (1 Difference Transformation):
+
+### Graphical Representation of Time Series and respective ACF & PACF:
+
+```{r date_variant, echo=FALSE}
+z<-diff(y) 
+par(mar=c(2,2,2,2)) # to adjust graphic size
+par(mfrow=c(3,1)) # plot the series, its acf and pacf together
+ts.plot(z)   
+acf(z)
+pacf(z)
+```
+
+### Computation of basic descriptive statistics:
+
+```{r date_variant, echo=FALSE}
+mean(z)
+sd(z)
+skewness(z)
+kurtosis(z,method=c("moment"))  
+```
+
+The series plot suggest this dataset is stationary around both the mean but the variance (there are not significant lags out of bound). This is also supported by a mean value of 0.0004. To verify our deductions, we conducted a formal unit root test: the Augmented Dickey Fuller (ADF) with the following hypothesis:
+
+  *Ho: the process is not stationary.(i.e. We need a unit root)*
+  *H1: the process is stationary.(i.e. No differences needed)*
+
+**Stationarity Formal Test:
+
+```{r date_variant, echo=FALSE}
+ndiffs(z, alpha=0.05, test=c("adf"))
+```
+The ADF test indicates 0 required differences, hence enabling us to reject Ho and validate our previous inference. Furthermore, we are also capable of claiming no further data transformation will be needed. When analysing both ACF & PACF function we observe that, at a 95% confidence level, past information appears to not contribute to futuristic predictions when it comes to the variance (i.e. lags are within the confidence interval limit boundaries and, those who are not, do not have a high impact on the R^2). To formally assess the series autocorrelation, we opted to realise a Box-Ljung Test with the following hypotheses:
+
+  *Ho: Uncorrelated data*
+  *H1: Correlated data*
+
+**Testing for White-Noise(WN)/Autocorrelation:
+
+```{r date_variant, echo=FALSE}
+Box.test (z, lag = 20, type="Ljung")
+```
+
+The test p-value= 0.0049 suggests that, at a 95% confindence level, we should not reject the null hypothesis, therefore the data is uncorrelated and the past is not useful for forecasting purposes. Therefore, we feel comfortable suggesting this series has white noise (WN) process. In addition, we can also conclude that a linear model is not helpful to model/predict future values of this time series. On the other hand, a non linear model will be useful to model/predict future values.
+
+Now, we will try and identify if the series' marginal distribution is normally distributed by recurring to both graphical tools and normality tests (i.e. Shapiro and Jarque-Bera Tests). 
+
+### Testing for Normality:
+
+```{r date_variant, echo=FALSE}
+
+#Graphically:
+
+par(mfrow=c(1,1))
+hist(z,prob=T,ylim=c(0,0.6),xlim=c(mean(z)-3*sd(z),mean(z)+3*sd(z)),col="red")
+lines(density(z),lwd=2)
+mu<-mean(z)
+sigma<-sd(z)
+x<-seq(mu-3*sigma,mu+3*sigma,length=100)
+yy<-dnorm(x,mu,sigma)
+lines(x,yy,lwd=2,col="blue")
+```
+According to our graphical analysis, the time series 7 (transformed) joint distribution does not seem normally distributed given the black (our series) and blue (normal distribution reference line N ~ (0,1)) do not overlap and the Bell curve way lower than  what exhibited by the time series 7.
+
+```{r date_variant, echo=FALSE}
+
+#Formal Tests:
+
+shapiro.test(z)
+jb.norm.test(z)
+```
+Both formal tests follow the same hypothesis structure:
+
+  *Ho: the data is normally distributed*
+  *H1: the data is not normally distributed*
+
+Both Jarque-Bera and Shapiro tests (p-value < 2.2e-16) indicate we should reject the null hypothesis at a 95% confidence level. Therefore, we were able to validate the conclusions based on the team's eye test. As per consequence,this series is not normally distributed. Because of that, in this series, we do not have Gaussian White Noise (GWN). 
+
+We are finally going to test for Strict White Noise: 
+
+### Testing for Strict White Noise:
+
+```{r}
+par(mar=c(2,2,2,2)) # to adjust graphic size
+
+par(mfrow=c(3,1)) # analysis of the squared data
+ts.plot(z^2)   
+acf(z^2)
+pacf(z^2)
+```
+When testing for strict white noise, the series plot suggests this dataset does not have strict white noise as there are many lags outside of bound in both the mean and the variance (ACF and PACF). 
+
+
+###### THE END ######
 ```{r date_variant, echo=FALSE}
 y<-series7
 # to adjust graphic size

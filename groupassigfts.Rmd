@@ -111,6 +111,7 @@ print(tests_table)
 
 
 # HEY GUYS COPYPASTE FROM HERE TO '</div>' AND ADD YOUR SERIES INFO AND THE DESIRED GRAPHS I WILL MAKE IT LOOK NICE ON THRU
+#AAAAAA
 <div id= 'time_series_7'>
 ## Time Series 7
 ```{r date_variant, echo=FALSE}

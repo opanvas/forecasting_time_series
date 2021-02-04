@@ -425,7 +425,7 @@ Both Jarque-Bera and Shapiro tests reported very small p-values, indicating we s
 ### Graphical Representation of Time Series and respective ACF & PACF:
 
 ```{r, echo=FALSE}
-y<-series2
+y<-series3
 y<-diff(y)
 par(mar=c(2,2,2,2)) # to adjust graphic size
 par(mfrow=c(3,1)) # plot the series, its acf and pacf together

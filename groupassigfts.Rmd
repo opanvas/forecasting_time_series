@@ -68,14 +68,14 @@ library(readxl)
 
 #Oxana file paths
 #file_path_original_data <- file.path("~","Downloads","Timeseries","Homework_1_DATA .csv")
-#data<-read.csv(file_path_original_data, header=TRUE,sep=";",dec=",")
+data<-read.csv(file_path_original_data, header=TRUE,sep=";",dec=",")
 summary_table_ts_file <- file.path("~","Downloads","Timeseries","resultsfts.xlsx")
 summary_table_ts_or <- read_excel(summary_table_ts_file, sheet = 1)
 summary_table_ts_tr <- read_excel(summary_table_ts_file, sheet = 5)
 tests_table <- read_excel(summary_table_ts_file, sheet = 2)
 
 #Luna file path
-data<-read.csv("/Users/lunaallani/Desktop/IE_Master/Forecasting Time Series/Homework_1_DATA.csv", header=TRUE,sep=";",dec=",")
+#data<-read.csv("/Users/lunaallani/Desktop/IE_Master/Forecasting Time Series/Homework_1_DATA.csv", header=TRUE,sep=";",dec=",")
 
 # Data itself
 series1=data[,1] [1:300]
@@ -94,13 +94,13 @@ series7=data[,7]
 
 ## Original Data 
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 print(summary_table_ts_or)
 ```
 
 ## Transformed Data
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 print(summary_table_ts_tr)
 ```
 
@@ -108,7 +108,7 @@ print(summary_table_ts_tr)
 
 > 'Additionally we wanted to list all the tests we carried out in one place in order for it to be more understandable'
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 print(tests_table)
 ```
 
@@ -120,7 +120,7 @@ print(tests_table)
   
 ### Graphical Representation of Time Series and respective ACF & PACF:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 y<-series1
 par(mar=c(2,2,2,2)) # to adjust graphic size
 par(mfrow=c(3,1)) # plot the series, its acf and pacf together
@@ -131,7 +131,7 @@ pacf(y)
 
 ### Computation of basic descriptive statistics:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 mean(y)
 sd(y)
 skewness(y)
@@ -145,7 +145,7 @@ The series plot suggest this dataset is stationary around both mean and variance
 
 **Stationarity Formal Test:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 ndiffs(y, alpha=0.05, test=c("adf"))
 ```
 The ADF test indicates 0 required differences, hence enabling us to reject Ho and validate our previous inference. Furthermore, we are also capable of claiming no data transformation is needed.
@@ -156,7 +156,7 @@ When looking at both ACF & PACF function we observe that, at a 95% confidence le
 
 **Testing for White-Noise(WN)/Autocorrelation:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 Box.test (y, lag = 20, type="Ljung")
 ```
 
@@ -164,7 +164,7 @@ The test p.value of 0.5 suggests that, at a 95% confindence level, we cannot rej
 
 ### Testing for Normality:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Graphically:
 
@@ -179,7 +179,7 @@ lines(x,yy,lwd=2,col="blue")
 ```
 According to our graphical analysis, time series 1 joint distribution seems normally distributed given the black (our series) and blue (normal distribution reference line N ~ (0,1)) overlap significantly with the exception of a small detour on the left side of the distribution around x = -2. 
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Formal Tests:
 
@@ -198,7 +198,7 @@ While both formal tests preconised that we should reject Ho at a 95% confidence 
 
 ### Graphical Representation of Time Series and respective ACF & PACF:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 y<-series2
 par(mar=c(2,2,2,2)) # to adjust graphic size
 par(mfrow=c(3,1)) # plot the series, its acf and pacf together
@@ -209,7 +209,7 @@ pacf(y)
 
 ### Computation of basic descriptive statistics:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 mean(y)
 sd(y)
 skewness(y)
@@ -223,7 +223,7 @@ The series plot suggests this dataset is not stationary around the mean (it exhb
 
 **Stationarity Formal Test:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 ndiffs(y, alpha=0.05, test=c("adf"))
 ```
 
@@ -235,7 +235,7 @@ When observing both ACF & PACF function we infer that, at a 95% confidence level
 
 **Testing for White-Noise(WN)/Autocorrelation:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 Box.test (y, lag = 20, type="Ljung")
 ```
 
@@ -245,7 +245,7 @@ Now, we will try and identify if the series' marginal distribution is normally d
 
 ### Testing for Normality:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Graphically:
 
@@ -260,7 +260,7 @@ lines(x,yy,lwd=2,col="blue")
 ```
 According to our graphical analysis, the time series 3 joint distribution cannot be normally distributed. We decided to verify our intuition with formal tests.
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Formal Tests:
 
@@ -278,7 +278,7 @@ Both Jarque-Bera and Shapiro tests reported very small p-values, indicating we s
 
 ### Graphical Representation of Time Series and respective ACF & PACF:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 y<-series2
 y<-diff(y)
 par(mar=c(2,2,2,2)) # to adjust graphic size
@@ -290,7 +290,7 @@ pacf(y)
 
 ### Computation of basic descriptive statistics:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 mean(y)
 sd(y)
 skewness(y)
@@ -304,7 +304,7 @@ The series plot suggest this dataset is stationary around both mean and variance
 
 **Stationarity Formal Test:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 ndiffs(y, alpha=0.05, test=c("adf"))
 ```
 The ADF test indicates 0 required differences, hence enabling us to reject Ho and validate our previous inference. Furthermore, we are also capable of claiming no further data transformation will be needed. When analysing both ACF & PACF function we observe that, at a 95% confidence level, past information appears unable to contribute to futuristic predictions (i.e. all lags are within the confidence interval limit boundaries). To formally assess the series autocorrelation, we opted to realise a Box-Ljung Test with the following hypotheses:
@@ -312,9 +312,9 @@ The ADF test indicates 0 required differences, hence enabling us to reject Ho an
   *Ho: Uncorrelated data*
   *H1: Correlated data*
 
-**Testing for White-Noise(WN)/Autocorrelation:
+**Testing for White-Noise(WN)/Autocorrelation**:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 Box.test (y, lag = 20, type="Ljung")
 ```
 
@@ -324,7 +324,7 @@ Now, we will try and identify if the series' marginal distribution is normally d
 
 ### Testing for Normality:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Graphically:
 
@@ -339,7 +339,7 @@ lines(x,yy,lwd=2,col="blue")
 ```
 According to our graphical analysis, the time series 2 (trasnformed) joint distribution seems normally distributed given the black (our series) and blue (normal distribution reference line N ~ (0,1)) overlap significantly despite being the narrower Bell curve exhibited by the time series studied between (-1;1).
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Formal Tests:
 
@@ -360,7 +360,7 @@ Both Jarque-Bera (p-value 0.55) and Shapiro tests (p-value 0.69) indicate we sho
 
 ### Graphical Representation of Time Series and respective ACF & PACF:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 y<-series3
 par(mar=c(2,2,2,2)) # to adjust graphic size
 par(mfrow=c(3,1)) # plot the series, its acf and pacf together
@@ -371,7 +371,7 @@ pacf(y)
 
 ### Computation of basic descriptive statistics:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 mean(y)
 sd(y)
 skewness(y)
@@ -383,9 +383,9 @@ The series plot suggests this dataset is not stationary around the mean (it exhb
   *Ho: the process is not stationary.(i.e. We need a unit root)*
   *H1: the process is stationary.(i.e. No differences needed)*
 
-**Stationarity Formal Test:
+**Stationarity Formal Test:**
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 ndiffs(y, alpha=0.05, test=c("adf"))
 ```
 
@@ -395,9 +395,9 @@ When observing both ACF & PACF function we infer that, at a 95% confidence level
   *Ho: Uncorrelated data*
   *H1: Correlated data*
 
-**Testing for White-Noise(WN)/Autocorrelation:
+**Testing for White-Noise(WN)/Autocorrelation**:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 Box.test (y, lag = 20, type="Ljung")
 ```
 
@@ -407,7 +407,7 @@ Now, we will try and identify if the series' marginal distribution is normally d
 
 ### Testing for Normality:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Graphically:
 
@@ -422,7 +422,7 @@ lines(x,yy,lwd=2,col="blue")
 ```
 According to our graphical analysis, the time series 3 joint distribution cannot be normally distributed. We decided to verify our intuition with formal tests.
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Formal Tests:
 
@@ -440,7 +440,7 @@ Both Jarque-Bera and Shapiro tests reported very small p-values, indicating we s
 
 ### Graphical Representation of Time Series and respective ACF & PACF:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 y<-series2
 y<-diff(y)
 par(mar=c(2,2,2,2)) # to adjust graphic size
@@ -452,7 +452,7 @@ pacf(y)
 
 ### Computation of basic descriptive statistics:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 mean(y)
 sd(y)
 skewness(y)
@@ -464,9 +464,9 @@ The series plot suggest this dataset is stationary around both mean and variance
   *Ho: the process is not stationary.(i.e. We need a unit root)*
   *H1: the process is stationary.(i.e. No differences needed)*
 
-**Stationarity Formal Test:
+**Stationarity Formal Test:**
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 ndiffs(y, alpha=0.05, test=c("adf"))
 ```
 The ADF test indicates 0 required differences, hence enabling us to reject Ho and validate our previous inference. Furthermore, we are also capable of claiming no further data transformation will be required. Nevertheless, when analysing both ACF & PACF function we observe that, at a 95% confidence level, past information appears capable of contributing to future predictions (i.e. lags 1 and 3 are out of bounds and with significant magnitude). To formally assess the series autocorrelation, we opted to realise a Box-Ljung Test with the following hypotheses:
@@ -476,7 +476,7 @@ The ADF test indicates 0 required differences, hence enabling us to reject Ho an
 
 **Testing for White-Noise(WN)/Autocorrelation:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 Box.test (y, lag = 20, type="Ljung")
 ```
 
@@ -486,7 +486,7 @@ Now, we will try and identify if the series' marginal distribution is normally d
 
 ### Testing for Normality:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Graphically:
 
@@ -501,7 +501,7 @@ lines(x,yy,lwd=2,col="blue")
 ```
 According to our graphical analysis, the time series 3 (trasnformed) joint distribution could be normally distributed given the black (our series) and blue (normal distribution reference line N ~ (0,1)) have a similar shapes. We decided to verify our intuition with formal tests.
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Formal Tests:
 
@@ -521,7 +521,7 @@ Both Jarque-Bera (p-value 0.20) and Shapiro tests (p-value 0.22) indicate we sho
 
 ### Graphical Representation of Time Series and respective ACF & PACF:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 y<-series4
 par(mar=c(2,2,2,2)) # to adjust graphic size
 par(mfrow=c(3,1)) # plot the series, its acf and pacf together
@@ -532,7 +532,7 @@ pacf(y)
 
 ### Computation of basic descriptive statistics:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 mean(y)
 sd(y)
 skewness(y)
@@ -544,9 +544,9 @@ The series plot suggests this dataset is not stationary around the mean (it exhi
   *Ho: the process is not stationary.(i.e. We need a unit root)*
   *H1: the process is stationary.(i.e. No differences needed)*
 
-**Stationarity Formal Test:
+**Stationarity Formal Test:**
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 ndiffs(y, alpha=0.05, test=c("adf"))
 ```
 
@@ -555,9 +555,9 @@ The ADF test indicates 2 differences are required for the data to become station
   *Ho: Uncorrelated data*
   *H1: Correlated data*
 
-**Testing for White-Noise(WN)/Autocorrelation:
+**Testing for White-Noise(WN)/Autocorrelation:**
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 Box.test (y, lag = 20, type="Ljung")
 ```
 
@@ -567,7 +567,7 @@ Now, we will try and identify if the series' marginal distribution is normally d
 
 ### Testing for Normality:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Graphically:
 
@@ -582,7 +582,7 @@ lines(x,yy,lwd=2,col="blue")
 ```
 According to our graphical analysis, the time series 4 joint distribution cannot be normally distributed. We decided to verify our intuition with formal tests.
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Formal Tests:
 
@@ -600,7 +600,7 @@ Both Jarque-Bera and Shapiro tests reported extremely small p-values, indicating
 
 ### Graphical Representation of Time Series and respective ACF & PACF:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 z<-diff(y) 
 z <-diff(z)
 par(mar=c(2,2,2,2)) # to adjust graphic size
@@ -612,7 +612,7 @@ pacf(z)
 
 ### Computation of basic descriptive statistics:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 mean(z)
 sd(z)
 skewness(z)
@@ -624,9 +624,9 @@ The series plot suggest this dataset is stationary around both mean and variance
   *Ho: the process is not stationary.(i.e. We need a unit root)*
   *H1: the process is stationary.(i.e. No differences needed)*
 
-**Stationarity Formal Test:
+**Stationarity Formal Test:**
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 ndiffs(z, alpha=0.05, test=c("adf"))
 ```
 The ADF test indicates 0 required differences, hence enabling us to reject Ho and validate our previous inference. Furthermore, we are also capable of claiming no further data transformation will be needed. When analysing both ACF & PACF function we observe that, at a 95% confidence level, past information appears to contribute to futuristic predictions when it comes to the mean (i.e. all lags 1-2-3-4 are not within the confidence interval limit boundaries). To formally assess the series autocorrelation, we opted to realise a Box-Ljung Test with the following hypotheses:
@@ -634,9 +634,9 @@ The ADF test indicates 0 required differences, hence enabling us to reject Ho an
   *Ho: Uncorrelated data*
   *H1: Correlated data*
 
-**Testing for White-Noise(WN)/Autocorrelation:
+**Testing for White-Noise(WN)/Autocorrelation:**
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 Box.test (z, lag = 20, type="Ljung")
 ```
 
@@ -646,7 +646,7 @@ Now, we will try and identify if the series' marginal distribution is normally d
 
 ### Testing for Normality:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Graphically:
 
@@ -661,7 +661,7 @@ lines(x,yy,lwd=2,col="blue")
 ```
 According to our graphical analysis, the time series 2 (trasnformed) joint distribution seems normally distributed given the black (our series) and blue (normal distribution reference line N ~ (0,1)) overlap significantly despite the Bell curve being higher than  what exhibited by the time series 4.
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Formal Tests:
 
@@ -681,7 +681,7 @@ Both Jarque-Bera (p-value 0.4775) and Shapiro tests (p-value 0.3416) indicate we
 
 ### Graphical Representation of Time Series and respective ACF & PACF:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 y<-series5
 par(mar=c(2,2,2,2)) # to adjust graphic size
 par(mfrow=c(3,1)) # plot the series, its acf and pacf together
@@ -692,7 +692,7 @@ pacf(y)
 
 ### Computation of basic descriptive statistics:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 mean(y)
 sd(y)
 skewness(y)
@@ -704,9 +704,9 @@ The series plot suggests this dataset is stationary around the mean, a result hi
   *Ho: the process is not stationary.(i.e. We need a unit root)*
   *H1: the process is stationary.(i.e. No differences needed)*
 
-**Stationarity Formal Test:
+**Stationarity Formal Test:**
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 ndiffs(y, alpha=0.05, test=c("adf"))
 ```
 
@@ -715,9 +715,9 @@ The ADF test indicates 0 differences are required for the data to become station
   *Ho: Uncorrelated data*
   *H1: Correlated data*
 
-**Testing for White-Noise(WN)/Autocorrelation:
+**Testing for White-Noise(WN)/Autocorrelation:**
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 Box.test (y, lag = 20, type="Ljung")
 ```
 
@@ -727,7 +727,7 @@ Now, we will try and identify if the series' marginal distribution is normally d
 
 ### Testing for Normality:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Graphically:
 
@@ -742,7 +742,7 @@ lines(x,yy,lwd=2,col="blue")
 ```
 According to our graphical analysis, the time series 5 joint distribution cannot be normally distributed. We decided to verify our intuition with formal tests.
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Formal Tests:
 
@@ -774,7 +774,7 @@ When testing for strict white noise, the series plot suggests this dataset does 
 
 ### Graphical Representation of Time Series and respective ACF & PACF:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 y<-series6
 par(mar=c(2,2,2,2)) # to adjust graphic size
 par(mfrow=c(3,1)) # plot the series, its acf and pacf together
@@ -785,7 +785,7 @@ pacf(y)
 
 ### Computation of basic descriptive statistics:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 mean(y)
 sd(y)
 skewness(y)
@@ -799,7 +799,7 @@ The series plot suggests this dataset is stationary around the mean (it exhibits
 
 **Stationarity Formal Test:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 ndiffs(y, alpha=0.05, test=c("adf"))
 ```
 
@@ -810,7 +810,7 @@ The ADF test indicates 0 differences are required for the data to become station
 
 **Testing for White-Noise(WN)/Autocorrelation:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 Box.test (y, lag = 20, type="Ljung")
 ```
 
@@ -820,7 +820,7 @@ Now, we will try and identify if the series' marginal distribution is normally d
 
 ### Testing for Normality:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Graphically:
 
@@ -835,7 +835,7 @@ lines(x,yy,lwd=2,col="blue")
 ```
 According to our graphical analysis, the time series 6 joint distribution cannot be normally distributed. We decided to verify our intuition with formal tests.
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Formal Tests:
 
@@ -856,7 +856,7 @@ Both Jarque-Bera and Shapiro tests reported extremely small p-values < 2.2e-16, 
 
 ### Graphical Representation of Time Series and respective ACF & PACF:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 y<-series7
 par(mar=c(2,2,2,2)) # to adjust graphic size
 par(mfrow=c(3,1)) # plot the series, its acf and pacf together
@@ -867,7 +867,7 @@ pacf(y)
 
 ### Computation of basic descriptive statistics:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 mean(y)
 sd(y)
 skewness(y)
@@ -881,7 +881,7 @@ The series plot suggests this dataset is not stationary around the mean (it exhi
 
 **Stationarity Formal Test:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 ndiffs(y, alpha=0.05, test=c("adf"))
 ```
 
@@ -890,9 +890,9 @@ The ADF test indicates 1 difference is required for the data to become stationar
   *Ho: Uncorrelated data*
   *H1: Correlated data*
 
-**Testing for White-Noise(WN)/Autocorrelation:
+**Testing for White-Noise(WN)/Autocorrelation:**
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 Box.test (y, lag = 20, type="Ljung")
 ```
 
@@ -902,7 +902,7 @@ Now, we will try and identify if the series' marginal distribution is normally d
 
 ### Testing for Normality:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Graphically:
 
@@ -917,7 +917,7 @@ lines(x,yy,lwd=2,col="blue")
 ```
 According to our graphical analysis, the time series 7 joint distribution cannot be normally distributed. We decided to verify our intuition with formal tests.
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Formal Tests:
 
@@ -935,7 +935,7 @@ Both Jarque-Bera and Shapiro tests reported extremely small p-values < 2.2e-16, 
 
 ### Graphical Representation of Time Series and respective ACF & PACF:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 z<-diff(y) 
 par(mar=c(2,2,2,2)) # to adjust graphic size
 par(mfrow=c(3,1)) # plot the series, its acf and pacf together
@@ -946,7 +946,7 @@ pacf(z)
 
 ### Computation of basic descriptive statistics:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 mean(z)
 sd(z)
 skewness(z)
@@ -960,7 +960,7 @@ The series plot suggest this dataset is stationary around both the mean but the 
 
 **Stationarity Formal Test:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 ndiffs(z, alpha=0.05, test=c("adf"))
 ```
 The ADF test indicates 0 required differences, hence enabling us to reject Ho and validate our previous inference. Furthermore, we are also capable of claiming no further data transformation will be needed. When analysing both ACF & PACF function we observe that, at a 95% confidence level, past information appears to not contribute to futuristic predictions when it comes to the variance (i.e. lags are within the confidence interval limit boundaries and, those who are not, do not have a high impact on the R^2). To formally assess the series autocorrelation, we opted to realise a Box-Ljung Test with the following hypotheses:
@@ -968,9 +968,9 @@ The ADF test indicates 0 required differences, hence enabling us to reject Ho an
   *Ho: Uncorrelated data*
   *H1: Correlated data*
 
-**Testing for White-Noise(WN)/Autocorrelation:
+**Testing for White-Noise(WN)/Autocorrelation:**
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 Box.test (z, lag = 20, type="Ljung")
 ```
 
@@ -980,7 +980,7 @@ Now, we will try and identify if the series' marginal distribution is normally d
 
 ### Testing for Normality:
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Graphically:
 
@@ -995,7 +995,7 @@ lines(x,yy,lwd=2,col="blue")
 ```
 According to our graphical analysis, the time series 7 (transformed) joint distribution does not seem normally distributed given the black (our series) and blue (normal distribution reference line N ~ (0,1)) do not overlap and the Bell curve way lower than  what exhibited by the time series 7.
 
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 
 #Formal Tests:
 
@@ -1025,7 +1025,7 @@ When testing for strict white noise, the series plot suggests this dataset does 
 </div>
 
 ###### THE END ######
-```{r date_variant, echo=FALSE}
+```{r, echo=FALSE}
 y<-series7
 # to adjust graphic size
 par(mar=c(2,2,2,2)) 

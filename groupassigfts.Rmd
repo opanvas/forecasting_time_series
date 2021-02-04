@@ -96,6 +96,8 @@ kbl(tests_table)
 
 </div>
 
+> Now in case you want to see all the tests and thought process behind this table, please find them below.
+
 
 <div id= 'time_series_1'>
 ## Time Series 1
@@ -125,7 +127,7 @@ The series plot suggest this dataset is stationary around both mean and variance
   *Ho: the process is not stationary.(i.e. We need a unit root)*
   *H1: the process is stationary.(i.e. No differences needed)*
 
-**Stationarity Formal Test:
+**Stationarity Formal Test:**
 
 ```{r, echo=FALSE}
 ndiffs(y, alpha=0.05, test=c("adf"))
@@ -136,7 +138,7 @@ When looking at both ACF & PACF function we observe that, at a 95% confidence le
   *Ho: Uncorrelated data*
   *H1: Correlated data*
 
-**Testing for White-Noise(WN)/Autocorrelation:
+**Testing for White-Noise(WN)/Autocorrelation:**
 
 ```{r, echo=FALSE}
 Box.test (y, lag = 20, type="Ljung")
@@ -174,8 +176,10 @@ Both formal tests follow the same hypothesis structure:
   *H1: the data is not normally distributed*
 
 While both formal tests preconised that we should reject Ho at a 95% confidence level (p.values of roughly 0.02 and 0.003 respectively), we deemed the results excessively rigid for this particular case and decided to stick with the eye test. Therefore, by infering this series joint distribution is marginally distributed, we concluded it is not only a WN but also Gaussian White Noise (GWN) and subsquently Strict White Noise (SWN) process since an uncorrelated variable whose multivariate joint distribution is Normal is forcefully indepedent and identically distributed(i.i.d). Given our latest findings, we can also infer that no non-linear model would be of help in future forecasting endeavours. 
+</div>
 
-</div id= 'time_series_2'>
+<div id= 'time_series_2'>
+
 ## Time Series 2
 
 ### Graphical Representation of Time Series and respective ACF & PACF:
@@ -215,7 +219,7 @@ When observing both ACF & PACF function we infer that, at a 95% confidence level
   *Ho: Uncorrelated data*
   *H1: Correlated data*
 
-**Testing for White-Noise(WN)/Autocorrelation:
+**Testing for White-Noise(WN)/Autocorrelation:**
 
 ```{r, echo=FALSE}
 Box.test (y, lag = 20, type="Ljung")
@@ -240,6 +244,7 @@ x<-seq(mu-3*sigma,mu+3*sigma,length=100)
 yy<-dnorm(x,mu,sigma)
 lines(x,yy,lwd=2,col="blue")
 ```
+
 According to our graphical analysis, the time series 3 joint distribution cannot be normally distributed. We decided to verify our intuition with formal tests.
 
 ```{r, echo=FALSE}
@@ -294,7 +299,7 @@ The ADF test indicates 0 required differences, hence enabling us to reject Ho an
   *Ho: Uncorrelated data*
   *H1: Correlated data*
 
-**Testing for White-Noise(WN)/Autocorrelation**:
+**Testing for White-Noise(WN)/Autocorrelation:**
 
 ```{r, echo=FALSE}
 Box.test (y, lag = 20, type="Ljung")
@@ -319,6 +324,7 @@ x<-seq(mu-3*sigma,mu+3*sigma,length=100)
 yy<-dnorm(x,mu,sigma)
 lines(x,yy,lwd=2,col="blue")
 ```
+
 According to our graphical analysis, the time series 2 (trasnformed) joint distribution seems normally distributed given the black (our series) and blue (normal distribution reference line N ~ (0,1)) overlap significantly despite being the narrower Bell curve exhibited by the time series studied between (-1;1).
 
 ```{r, echo=FALSE}
@@ -334,9 +340,10 @@ Both formal tests follow the same hypothesis structure:
   *H1: the data is not normally distributed*
 
 Both Jarque-Bera (p-value 0.55) and Shapiro tests (p-value 0.69) indicate we should accept the null hypothesis at a 95% confidence level. Therefore, we were able to validate the conclusions based on the team's eye test. As per consequence, by infering this series joint distribution is marginally distributed, we concluded it is not only a WN but also Gaussian White Noise (GWN) and subsquently Strict White Noise (SWN) process since an uncorrelated variable whose multivariate joint distribution is Normal is forcefully i.i.d. Given our latest findings, we can also infer that no non-linear model would be of help in future forecasting endeavours. 
+
 </div>
 
-</div id= 'time_series_3'>
+<div id= 'time_series_3'>
 
 ## Time Series 3
 
@@ -377,7 +384,7 @@ When observing both ACF & PACF function we infer that, at a 95% confidence level
   *Ho: Uncorrelated data*
   *H1: Correlated data*
 
-**Testing for White-Noise(WN)/Autocorrelation**:
+**Testing for White-Noise(WN)/Autocorrelation:**
 
 ```{r, echo=FALSE}
 Box.test (y, lag = 20, type="Ljung")
@@ -402,6 +409,7 @@ x<-seq(mu-3*sigma,mu+3*sigma,length=100)
 yy<-dnorm(x,mu,sigma)
 lines(x,yy,lwd=2,col="blue")
 ```
+
 According to our graphical analysis, the time series 3 joint distribution cannot be normally distributed. We decided to verify our intuition with formal tests.
 
 ```{r, echo=FALSE}
@@ -456,7 +464,7 @@ The ADF test indicates 0 required differences, hence enabling us to reject Ho an
   *Ho: Uncorrelated data*
   *H1: Correlated data*
 
-**Testing for White-Noise(WN)/Autocorrelation:
+**Testing for White-Noise(WN)/Autocorrelation:**
 
 ```{r, echo=FALSE}
 Box.test (y, lag = 20, type="Ljung")
@@ -481,6 +489,7 @@ x<-seq(mu-3*sigma,mu+3*sigma,length=100)
 yy<-dnorm(x,mu,sigma)
 lines(x,yy,lwd=2,col="blue")
 ```
+
 According to our graphical analysis, the time series 3 (trasnformed) joint distribution could be normally distributed given the black (our series) and blue (normal distribution reference line N ~ (0,1)) have a similar shapes. We decided to verify our intuition with formal tests.
 
 ```{r, echo=FALSE}
@@ -498,7 +507,7 @@ Both formal tests follow the same hypothesis structure:
 Both Jarque-Bera (p-value 0.20) and Shapiro tests (p-value 0.22) indicate we should accept the null hypothesis at a 95% confidence level. Therefore, we were able to validate the conclusions based on the team's eye test. As per consequence, this series joint distribution is normally distributed. 
 </div>
 
-</div id= 'time_series_4'>
+<div id= 'time_series_4'>
 ## Time Series 4
 
 ### Graphical Representation of Time Series and respective ACF & PACF:
@@ -562,6 +571,7 @@ x<-seq(mu-3*sigma,mu+3*sigma,length=100)
 yy<-dnorm(x,mu,sigma)
 lines(x,yy,lwd=2,col="blue")
 ```
+
 According to our graphical analysis, the time series 4 joint distribution cannot be normally distributed. We decided to verify our intuition with formal tests.
 
 ```{r, echo=FALSE}
@@ -641,6 +651,7 @@ x<-seq(mu-3*sigma,mu+3*sigma,length=100)
 yy<-dnorm(x,mu,sigma)
 lines(x,yy,lwd=2,col="blue")
 ```
+
 According to our graphical analysis, the time series 2 (trasnformed) joint distribution seems normally distributed given the black (our series) and blue (normal distribution reference line N ~ (0,1)) overlap significantly despite the Bell curve being higher than  what exhibited by the time series 4.
 
 ```{r, echo=FALSE}
@@ -722,6 +733,7 @@ x<-seq(mu-3*sigma,mu+3*sigma,length=100)
 yy<-dnorm(x,mu,sigma)
 lines(x,yy,lwd=2,col="blue")
 ```
+
 According to our graphical analysis, the time series 5 joint distribution cannot be normally distributed. We decided to verify our intuition with formal tests.
 
 ```{r, echo=FALSE}
@@ -790,7 +802,7 @@ The ADF test indicates 0 differences are required for the data to become station
   *Ho: Uncorrelated data*
   *H1: Correlated data*
 
-**Testing for White-Noise(WN)/Autocorrelation:
+**Testing for White-Noise(WN)/Autocorrelation:**
 
 ```{r, echo=FALSE}
 Box.test (y, lag = 20, type="Ljung")

@@ -2,7 +2,10 @@
 title: "Group Assignment Time Series"
 author: "MBD S2.2 Group 8"
 date: "2/2/2021"
-output: html_document
+output: 
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
 ---
 
 ```{r setup, include=FALSE}
@@ -12,40 +15,35 @@ knitr::opts_chunk$set(echo = TRUE)
 </style>
 
 <h3 class = 'menutop' id="Contents">
-  [Contents](#Contents)
   [Introduction](#Introduction)
-
-<div class="dropdown">
-<a class="dropbtn">Data analysis</a>
-<div class="dropdown-content">
   [Time series 1](#time_series_1)
   [Time series 2](#time_series_2)
   [Time series 3](#time_series_3)
   [Time series 4](#time_series_4)
-</div>
-</div>
   [Time series 5](#time_series_5)
   [Time series 6](#time_series_6)
   [Time series 7](#time_series_7)
+</div>
+</div>
+</div>
 </h3>
+
 <body style = "font-family: Arial, Helvetica, sans-serif;">
 <a center class="anchor" id="Introduction" style="background-color:Gainsboro; width:40%;"></a>
-<center style="background-color:Gainsboro; width:40%;">Introduction</center>
+<center style="background-color:Gainsboro; width:100%;">Introduction</center>
 
 
 > We are glad to present to you our first Group Assignment! We also wanted to practice R further, so we are delivering our findings in a markdown format.
 
-```{r, echo=F}
+```{r, echo=F, message=FALSE}
 # Before starting, we have to activate some R libraries in order to use the necessary statistics and time series functions:
-
 library(fBasics)
 library(forecast)
 library(normtest)
 library(tidyverse)
 library(readxl)
+library(kableExtra)
 
-#clean environment
-#rm(list=ls())
 #File paths:
 #Kiko file path
 #data<-read.csv("C:/Users/usuario/Desktop/LPC/MASTERS/MBD_abril_2019/Sessions2&3sim.csv",header=TRUE,sep=";",dec=",")
@@ -78,22 +76,22 @@ series7=data[,7]
 
 ## Original Data 
 
-```{r, echo=FALSE}
-print(summary_table_ts_or)
+```{r, echo=TRUE}
+kbl(summary_table_ts_or)
 ```
 
 ## Transformed Data
 
-```{r, echo=FALSE}
-print(summary_table_ts_tr)
+```{r, echo=TRUE}
+kbl(summary_table_ts_tr)
 ```
 
 ## Tests
 
 > 'Additionally we wanted to list all the tests we carried out in one place in order for it to be more understandable'
 
-```{r, echo=FALSE}
-print(tests_table)
+```{r, echo=TRUE}
+kbl(tests_table)
 ```
 
 </div>
@@ -104,7 +102,7 @@ print(tests_table)
   
 ### Graphical Representation of Time Series and respective ACF & PACF:
 
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 y<-series1
 par(mar=c(2,2,2,2)) # to adjust graphic size
 par(mfrow=c(3,1)) # plot the series, its acf and pacf together

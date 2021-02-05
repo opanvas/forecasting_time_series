@@ -51,7 +51,7 @@ library(kableExtra)
 #Oxana file paths
 file_path_original_data <- file.path("~","Downloads","Timeseries","Homework_1_DATA .csv")
 data<-read.csv(file_path_original_data, header=TRUE,sep=";",dec=",")
-summarytable_ts_file <- file.path("~","Downloads","Timeseries","resultsfts_luna.xlsx")
+summarytable_ts_file <- file.path("~","Downloads","Timeseries","resultsfts.xlsx")
 summarytable_ts_or <- read_excel(summarytable_ts_file, sheet = 1)
 summarytable_ts_tr <- read_excel(summarytable_ts_file, sheet = 5)
 teststable <- read_excel(summarytable_ts_file, sheet = 2)

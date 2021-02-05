@@ -451,10 +451,7 @@ Introduction
 <p>On the other hand, for the remaining time series (2, 3, 3 transformed, 4, 4 transformed, 6 and 7) we defended that a linear model would be helpful. Ultimately, requiring (or not) a non-linear model to analyse this time series will remain unknown since we must first remove the linear part of the model before conducting further analysis.</p>
 <p>Finally, we looked into the time series marginal distribution, in an effort to understand if they are normally distributed. For this purpose, we computed the time series histograms against a reference line following N ~ (0,1), as well as the Shapiro and Jarque-Bera Test. From this analysis, we concluded that time series 1 and 2 transformed , 3 transformed, and 4 transformed are normally distributed ( Please note that , in case of conflict between formal and eye tests, we often opted to trust the latter in detriment of the tests rigidity, a situation exemplified in series 1). From those , given that series 1 and 2 transformed are already White Noise, they can also be deemed Gaussian white noise and Strict White Noise since an uncorrelated variable whose multivariate joint distribution is Normal is forcefully independent and identically distributed(i.i.d). On the other hand, since time series 3 and 4 transformed are not White Noise, they cannot be Gaussian White Noise, and therefore neither Strict White Noise, despite being normally distributed.</p>
 <p>Out of the non-normally distributed series (series 2 to 7 and 7 transformed) , Series 5 and 7 transformed required an additional analysis because they are WN processes that do not follow a normally distribution, meaning the question about the series being SWN is left unanswered ( as well as its non-linear modelling requirements). By taking the squares of our series and replicating the analysis conducted above to infer autocorrelation, we were able to determine that both series required a non linear model to capture the relationship between their pasts and presents values ( lags of the ACF &amp; PACF out of bonds and results corroborated by formal tests) and therefore are not SWN processes.</p>
-<p>Note : All test were analysed considering a 95% confidence level (p.value = 0.05).</p>
-<blockquote>
-<p>‘We decided to also list the tests we used together with the original and transformed data’</p>
-</blockquote>
+<p><strong>Note : All test were analysed considering a 95% confidence level (p.value = 0.05).</strong></p>
 <div id="original-data" class="section level2">
 <h2>Original Data</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">kbl</span>(summary_table_ts_or)</span></code></pre></div>
@@ -545,7 +542,7 @@ NO
 Marginal Normal distribution
 </td>
 <td style="text-align:left;">
-Later decision
+YES
 </td>
 <td style="text-align:left;">
 NO
@@ -623,7 +620,7 @@ NO
 GWN
 </td>
 <td style="text-align:left;">
-Later decision
+YES
 </td>
 <td style="text-align:left;">
 NO
@@ -833,7 +830,7 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-YES
+NO
 </td>
 </tr>
 <tr>
@@ -885,7 +882,7 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-YES
+NO
 </td>
 </tr>
 <tr>
@@ -911,7 +908,7 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-YES
+NO
 </td>
 </tr>
 <tr>
@@ -963,7 +960,7 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-NO
+YES
 </td>
 </tr>
 <tr>
@@ -997,9 +994,7 @@ NO
 </div>
 <div id="tests" class="section level2">
 <h2>Tests</h2>
-<blockquote>
-<p>‘Additionally we wanted to list all the tests we carried out in one place in order for it to be more understandable’</p>
-</blockquote>
+<p>Additionally we wanted to list all the tests we carried out in one place in order for it to be more understandable</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">kbl</span>(tests_table)</span></code></pre></div>
 <table>
 <thead>
@@ -1342,7 +1337,7 @@ p-value &lt; 2.2e-16
 ##  Jarque-Bera test for normality
 ## 
 ## data:  y
-## JB = 18.193, p-value = 0.0025</code></pre>
+## JB = 18.193, p-value = 0.003</code></pre>
 <p>Both formal tests follow the same hypothesis structure:</p>
 <p><em>Ho: the data is normally distributed</em> <em>H1: the data is not normally distributed</em></p>
 <p>While both formal tests preconised that we should reject Ho at a 95% confidence level (p.values of roughly 0.02 and 0.003 respectively), we deemed the results excessively rigid for this particular case and decided to stick with the eye test. Therefore, by infering this series joint distribution is marginally distributed, we concluded it is not only a WN but also Gaussian White Noise (GWN) and subsquently Strict White Noise (SWN) process since an uncorrelated variable whose multivariate joint distribution is Normal is forcefully indepedent and identically distributed(i.i.d). Given our latest findings, we can also infer that no non-linear model would be of help in future forecasting endeavours.</p>
@@ -1386,7 +1381,7 @@ p-value &lt; 2.2e-16
 ##  Jarque-Bera test for normality
 ## 
 ## data:  y
-## JB = 18.817, p-value = 0.005</code></pre>
+## JB = 18.817, p-value = 0.0035</code></pre>
 <p>Both formal tests follow the same hypothesis structure:</p>
 <p><em>Ho: the data is normally distributed</em> <em>H1: the data is not normally distributed</em></p>
 <p>Both Jarque-Bera and Shapiro tests reported very small p-values, indicating we should reject the null hypothesis at a 95% confidence level. Therefore, we were able to validate the conclusions based on the team’s eye test.</p>
@@ -1428,7 +1423,7 @@ p-value &lt; 2.2e-16
 ##  Jarque-Bera test for normality
 ## 
 ## data:  y
-## JB = 1.1021, p-value = 0.55</code></pre>
+## JB = 1.1021, p-value = 0.5545</code></pre>
 <p>Both formal tests follow the same hypothesis structure:</p>
 <p><em>Ho: the data is normally distributed</em> <em>H1: the data is not normally distributed</em></p>
 <p>Both Jarque-Bera (p-value 0.55) and Shapiro tests (p-value 0.69) indicate we should accept the null hypothesis at a 95% confidence level. Therefore, we were able to validate the conclusions based on the team’s eye test. As per consequence, by infering this series joint distribution is marginally distributed, we concluded it is not only a WN but also Gaussian White Noise (GWN) and subsquently Strict White Noise (SWN) process since an uncorrelated variable whose multivariate joint distribution is Normal is forcefully i.i.d. Given our latest findings, we can also infer that no non-linear model would be of help in future forecasting endeavours.</p>
@@ -1472,7 +1467,7 @@ p-value &lt; 2.2e-16
 ##  Jarque-Bera test for normality
 ## 
 ## data:  y
-## JB = 13.938, p-value = 0.0045</code></pre>
+## JB = 13.938, p-value = 0.005</code></pre>
 <p>Both formal tests follow the same hypothesis structure:</p>
 <p><em>Ho: the data is normally distributed</em> <em>H1: the data is not normally distributed</em></p>
 <p>Both Jarque-Bera and Shapiro tests reported very small p-values, indicating we should reject the null hypothesis at a 95% confidence level. Therefore, we were able to validate the conclusions based on the team’s eye test.</p>
@@ -1514,7 +1509,7 @@ p-value &lt; 2.2e-16
 ##  Jarque-Bera test for normality
 ## 
 ## data:  y
-## JB = 2.8694, p-value = 0.2025</code></pre>
+## JB = 2.8694, p-value = 0.2045</code></pre>
 <p>Both formal tests follow the same hypothesis structure:</p>
 <p><em>Ho: the data is normally distributed</em> <em>H1: the data is not normally distributed</em></p>
 <p>Both Jarque-Bera (p-value 0.20) and Shapiro tests (p-value 0.22) indicate we should accept the null hypothesis at a 95% confidence level. Therefore, we were able to validate the conclusions based on the team’s eye test. As per consequence, this series joint distribution is normally distributed.</p>
@@ -1558,7 +1553,7 @@ p-value &lt; 2.2e-16
 ##  Jarque-Bera test for normality
 ## 
 ## data:  y
-## JB = 26.665, p-value = 5e-04</code></pre>
+## JB = 26.665, p-value = 0.0025</code></pre>
 <p>Both formal tests follow the same hypothesis structure:</p>
 <p><em>Ho: the data is normally distributed</em> <em>H1: the data is not normally distributed</em></p>
 <p>Both Jarque-Bera and Shapiro tests reported extremely small p-values, indicating we should reject the null hypothesis at a 95% confidence level. Therefore, we were able to validate the conclusions based on the team’s eye test.</p>
@@ -1600,7 +1595,7 @@ p-value &lt; 2.2e-16
 ##  Jarque-Bera test for normality
 ## 
 ## data:  z
-## JB = 1.4325, p-value = 0.445</code></pre>
+## JB = 1.4325, p-value = 0.4625</code></pre>
 <p>Both formal tests follow the same hypothesis structure:</p>
 <p><em>Ho: the data is normally distributed</em> <em>H1: the data is not normally distributed</em></p>
 <p>Both Jarque-Bera (p-value 0.4775) and Shapiro tests (p-value 0.3416) indicate we should accept the null hypothesis at a 95% confidence level. Therefore, we were able to validate the conclusions based on the team’s eye test. As per consequence,this series is marginally distributed.</p>

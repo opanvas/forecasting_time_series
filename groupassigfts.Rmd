@@ -50,7 +50,7 @@ library(kableExtra)
 
 #Oxana file paths
 file_path_original_data <- file.path("~","Downloads","Timeseries","Homework_1_DATA .csv")
-data<-read.csv(file_path_original_data, header=TRUE,sep=";",dec=",")
+#data<-read.csv(file_path_original_data, header=TRUE,sep=";",dec=",")
 summary_table_ts_file <- file.path("~","Downloads","Timeseries","resultsfts.xlsx")
 summary_table_ts_or <- read_excel(summary_table_ts_file, sheet = 1)
 summary_table_ts_tr <- read_excel(summary_table_ts_file, sheet = 5)
@@ -71,6 +71,21 @@ series7=data[,7]
 
 <div id= 'summary'>
 # Summary of findings 
+
+For each series, we first recurred to both a graphical analysis and formal test (the ADF Test) to determine if the time series were mean and variance stationary. Our analysis determined that while all series exhibited variance stationarity , series 2,3,4 and 7 were deemed non-stationary around the mean (due to sustained upward and downward trends), a result later confirmed by the ADF Test, which suggested  1 difference transformations for all but series 4, for which 2 differences were required. 
+
+Secondly, we combined an eye-test analysis of both  ACF and PACF functions with the Box - Ljung Test to assess every series autocorrelation and identify if they could represent a WN process (i.e a stationary stochastic process with 0 mean, constant variance and no autocorrelation). The results conveyed series 1 and 5 represented WN processes and the same conclusion could be made for series 2 and 7 after transformations were undertaken. Therefore, we can conclude that for these time series, a linear model is deemed ineffective when attempting to predict future values.
+
+At this stage, note that  the graphical analysis was sometimes misleading to determine time series autocorrelation. For, instance, in series 1 , while lag 12 is “out of bounds”, its small magnitude (approx. 0.11 ) and the lack of additional information about the dataset's time frequency (e.g is it monthly or yearly data?) made us prefer to rely on the formal test instead.
+
+On the other hand, for the remaining time series (2, 3, 3 transformed, 4, 4 transformed, 6 and 7) we defended that a linear model would be helpful. Ultimately, requiring (or not) a non-linear model to analyse this time series will remain unknown since we must first remove the linear part of the model before conducting further analysis. 
+
+Finally,  we looked into the time series marginal distribution, in an effort to understand if they are  normally  distributed. For this purpose, we computed the time series histograms against a reference line following  N ~ (0,1), as well as the Shapiro and Jarque-Bera Test. From this analysis, we concluded that time series 1 and 2 transformed , 3 transformed, and 4 transformed are normally distributed ( Please note that , in case of conflict between formal and eye tests, we often opted to trust the latter in detriment of the tests rigidity, a situation exemplified in series 1). 
+From those , given that series 1 and 2 transformed are already  White Noise, they can also be deemed Gaussian white noise and Strict White Noise since an uncorrelated variable whose multivariate joint distribution is Normal is forcefully independent and identically distributed(i.i.d). On the other hand, since time series 3 and 4 transformed are not White Noise, they cannot be Gaussian White Noise, and therefore neither Strict White Noise, despite being normally distributed. 
+
+Out of the non-normally distributed series (series 2 to 7 and 7 transformed) ,  Series 5 and 7 transformed required an additional analysis because they are WN processes that do not follow a normally distribution, meaning the question about the series being SWN is left unanswered ( as well as its non-linear modelling requirements). By taking the squares of our series and replicating the analysis conducted above to infer autocorrelation, we were able to determine that both series required a non linear model to capture the relationship between their pasts and presents values ( lags of the ACF & PACF out of bonds and results corroborated by formal tests) and therefore are not SWN processes.
+
+Note : All test were analysed considering a 95% confidence level (p.value = 0.05).
 
 > 'We decided to also list the tests we used together with the original and transformed data'
 
@@ -753,6 +768,9 @@ Both Jarque-Bera and Shapiro tests reported extremely small p-values (Jarque-Ber
 ### Testing for Strict White Noise:
 
 ```{r}
+
+# Graphically
+
 par(mar=c(2,2,2,2)) # to adjust graphic size
 
 par(mfrow=c(3,1)) # analysis of the squared data
@@ -760,7 +778,18 @@ ts.plot(y^2)
 acf(y^2)
 pacf(y^2)
 ```
-When testing for strict white noise, the series plot suggests this dataset does not have strict white noise as there are many lags outside of bound in both the ACF and PACF. As there is not SWN, we can also exclude gaussian white noise from this series. Consequently, we can also conclude that a non linear model is needed to model/predict future values of this time series.
+
+
+```{r}
+#Formal Tests:
+
+Box.test(y^2,lag=20, type="Ljung") 
+
+```
+ *Ho: uncorrelated data*
+ *H1: correlated data*
+
+When testing for strict white noise, the series plot suggests this dataset does not have strict white noise as there are many lags outside of bound in both the ACF and PACF. Our intuition is confirmed by the formal Box-Ljung test for the y^2. In fact, given a p-value < 2.2e-16, we reject the null hypothesis and find our data to be correlated. As there is not SWN, we can also exclude gaussian white noise from this series. Consequently, we can also conclude that a non linear model is needed to model/predict future values of this time series.
 </div>
 
 <div id= 'time_series_6'>
@@ -1008,6 +1037,8 @@ We are finally going to test for Strict White Noise:
 ### Testing for Strict White Noise:
 
 ```{r}
+# Graphically:
+
 par(mar=c(2,2,2,2)) # to adjust graphic size
 
 par(mfrow=c(3,1)) # analysis of the squared data
@@ -1015,7 +1046,19 @@ ts.plot(z^2)
 acf(z^2)
 pacf(z^2)
 ```
-When testing for strict white noise, the series plot suggests this dataset does not have strict white noise as there are many lags outside of bound in both the mean and the variance (ACF and PACF). 
+
+
+```{r}
+#Formal Tests:
+
+Box.test(z^2,lag=20, type="Ljung") 
+
+```
+ *Ho: uncorrelated data*
+ *H1: correlated data*
+
+When testing for strict white noise, the series plot suggests this dataset does not have strict white noise as there are many lags outside of bound in both, the ACF and PACF. Our intuition is confirmed by the formal Box-Ljung test for the z^2. In fact, given a p-value < 2.2e-16, we reject the null hypothesis and find our data to be correlated. 
+
 </div>
 
 ###### THE END ######

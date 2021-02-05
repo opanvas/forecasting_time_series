@@ -470,7 +470,7 @@ The ADF test indicates 0 required differences, hence enabling us to reject Ho an
 Box.test (y, lag = 20, type="Ljung")
 ```
 
-The extremely small p-value reported goes against our graphical analysis based on the ACF & PACF and conveys the idea that this time series is correlated with its past values. For this particular case, we decided to follow the formal test and the eye test from the initial series plotting, hence inferring our time series is not a WN process (nor SWN and GWN as result). Consequently, we can also conclude that a linear model is needed model/predict future values of this time series. Ultimately, requiring (or not) a non-linear model to analyse this time series will remain unknown since we must first isolate the linear part of the model to make such inference.
+The extremely small p-value reported verifies our graphical analysis based on the ACF & PACF and conveys the idea that this time series is correlated with its past values. Consequently, we can infer our time series is not a WN process (nor SWN and GWN as result). Consequently, we can also conclude that a linear model is needed model/predict future values of this time series. Ultimately, requiring (or not) a non-linear model to analyse this time series will remain unknown since we must first isolate the linear part of the model to make such inference.
 
 Now, we will try and identify if the series' marginal distribution is normally distributed by recurring to both graphical tools and nornality tests (i.e. Shapiro and Jarque-Bera Tests). 
 

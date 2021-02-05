@@ -36,7 +36,7 @@ knitr::opts_chunk$set(echo = TRUE)
 > We are glad to present to you our first Group Assignment! We also wanted to practice R further, so we are delivering our findings in a markdown format.
 
 ```{r, echo=F, message=FALSE}
-# Before starting, we have to activate some R libraries in order to use the necessary statistics and time series functions:
+# Before starting, we have to activate some R libraries in order to use the necessary statistics and time series functions
 library(fBasics)
 library(forecast)
 library(normtest)
@@ -50,7 +50,7 @@ library(kableExtra)
 
 #Oxana file paths
 file_path_original_data <- file.path("~","Downloads","Timeseries","Homework_1_DATA .csv")
-#data<-read.csv(file_path_original_data, header=TRUE,sep=";",dec=",")
+data<-read.csv(file_path_original_data, header=TRUE,sep=";",dec=",")
 summary_table_ts_file <- file.path("~","Downloads","Timeseries","resultsfts.xlsx")
 summary_table_ts_or <- read_excel(summary_table_ts_file, sheet = 1)
 summary_table_ts_tr <- read_excel(summary_table_ts_file, sheet = 5)
@@ -1060,6 +1060,8 @@ Box.test(z^2,lag=20, type="Ljung")
 When testing for strict white noise, the series plot suggests this dataset does not have strict white noise as there are many lags outside of bound in both, the ACF and PACF. Our intuition is confirmed by the formal Box-Ljung test for the z^2. In fact, given a p-value < 2.2e-16, we reject the null hypothesis and find our data to be correlated. 
 
 </div>
+
+
 
 ###### THE END ######
 

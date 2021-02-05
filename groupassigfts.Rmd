@@ -51,10 +51,13 @@ library(kableExtra)
 #Oxana file paths
 file_path_original_data <- file.path("~","Downloads","Timeseries","Homework_1_DATA .csv")
 data<-read.csv(file_path_original_data, header=TRUE,sep=";",dec=",")
-summary_table_ts_file <- file.path("~","Downloads","Timeseries","resultsfts.xlsx")
-summary_table_ts_or <- read_excel(summary_table_ts_file, sheet = 1)
-summary_table_ts_tr <- read_excel(summary_table_ts_file, sheet = 5)
-tests_table <- read_excel(summary_table_ts_file, sheet = 2)
+summarytable_ts_file <- file.path("~","Downloads","Timeseries","resultsfts_luna.xlsx")
+summarytable_ts_or <- read_excel(summarytable_ts_file, sheet = 1)
+summarytable_ts_tr <- read_excel(summarytable_ts_file, sheet = 5)
+teststable <- read_excel(summarytable_ts_file, sheet = 2)
+
+
+resultsfts_luna.xlsx
 
 #Luna file path
 #data<-read.csv("/Users/lunaallani/Desktop/IE_Master/Forecasting Time Series/Homework_1_DATA.csv", header=TRUE,sep=";",dec=",")
@@ -90,13 +93,13 @@ Out of the non-normally distributed series (series 2 to 7 and 7 transformed) ,  
 ## Original Data 
 
 ```{r, echo=TRUE}
-kbl(summary_table_ts_or)
+kbl(summarytable_ts_or)
 ```
 
 ## Transformed Data
 
 ```{r, echo=TRUE}
-kbl(summary_table_ts_tr)
+kbl(summarytable_ts_tr)
 ```
 
 ## Tests

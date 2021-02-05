@@ -85,9 +85,7 @@ From those , given that series 1 and 2 transformed are already  White Noise, the
 
 Out of the non-normally distributed series (series 2 to 7 and 7 transformed) ,  Series 5 and 7 transformed required an additional analysis because they are WN processes that do not follow a normally distribution, meaning the question about the series being SWN is left unanswered ( as well as its non-linear modelling requirements). By taking the squares of our series and replicating the analysis conducted above to infer autocorrelation, we were able to determine that both series required a non linear model to capture the relationship between their pasts and presents values ( lags of the ACF & PACF out of bonds and results corroborated by formal tests) and therefore are not SWN processes.
 
-Note : All test were analysed considering a 95% confidence level (p.value = 0.05).
-
-> 'We decided to also list the tests we used together with the original and transformed data'
+**Note : All test were analysed considering a 95% confidence level (p.value = 0.05).**
 
 ## Original Data 
 
@@ -103,7 +101,7 @@ kbl(summary_table_ts_tr)
 
 ## Tests
 
-> 'Additionally we wanted to list all the tests we carried out in one place in order for it to be more understandable'
+Additionally we wanted to list all the tests we carried out in one place in order for it to be more understandable
 
 ```{r, echo=TRUE}
 kbl(tests_table)

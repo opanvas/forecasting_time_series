@@ -3,6 +3,7 @@ title: "Group Assignment Time Series"
 author: "MBD S2.2 Group 8"
 date: "2/2/2021"
 output: word_document
+always_allow_html: yes
 ---
 
 ```{r setup, include=FALSE}
